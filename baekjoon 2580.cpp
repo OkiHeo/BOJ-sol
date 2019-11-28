@@ -17,6 +17,7 @@ int fx(int i, int j){
 }
 
 void solve(int idx){
+	// 스도쿠 판의 모든 빈칸에 대해서 조사를 끝냈을 때 
 	if( idx==n ){
 		for(int i=0; i<9; i++){
 			for(int j=0; j<9; j++){
@@ -30,7 +31,7 @@ void solve(int idx){
 	int y = zeros[idx]%9;
 	
 	for(int num=1; num<10; num++){
-		// 행, 열, 3x3블록에 해당 숫자가 존재하면 다음 수로 넘어간다  
+		// 행, 열, 3x3블록 중 하나에라도 해당 숫자가 존재하면 다음 수로 넘어간다  
 		if( checkR[x][num] || checkC[y][num] || checkS[fx(x, y)][num] )
 			continue;
 		checkR[x][num] = checkC[y][num] = checkS[fx(x, y)][num] = true;
