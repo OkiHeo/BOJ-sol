@@ -30,12 +30,6 @@ int main(){
 	for(int i=0; i<conf_n; i++){
 		// 이전회의 끝나는 시간 <= 새 회의 시작시간 
 		if( finTime <= conf[i].first ){
-			int newconf = i+1;
-			// 지금 진행중인 회의 다음에, 끝나는 시간이 가장 가까운 회의 선정 
-			while( (newconf<conf_n)&&(conf[i].second>=conf[newconf].second)){
-				newconf++;				
-			}
-			sort(conf.begin()+i, conf.begin()+newconf, comp2);
 			finTime = conf[i].second;
 			result++;
 		}
