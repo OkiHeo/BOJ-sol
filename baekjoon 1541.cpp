@@ -27,21 +27,15 @@ int main(){
 			op.push_back(s[i]);
 		}
 	}
-	/* 잘 파싱됐는지 확인하는 부분. */
-	for(int i=0; i<num.size(); i++){
-		cout<<num[i]<<' '; }
-	cout<<'\n';
-	for(int i=0; i<op.size(); i++){
-		cout<<op[i]<<' '; }
 	
 	/* 실제 계산을 수행하는 부분 */
 	// 최대한 많이 빼고, 적게 더한다.
 	// -를 만나기 이전에는 모든 숫자를 더해준다. 
 	// == -를 만나면 이후 숫자들은 모두 빼준다. 
 	// '-' 이후에 나타나는 '+'들은 -(a+b+c)-(d+e) 와 같이 모두 -로 바꿀 수 있으므로 
-	tmp = 0;	// tmp를 계산 결과 저장용으로 재활용하자. 
+	
+	tmp = num[0];	// tmp를 계산 결과 저장용으로 재활용하자. 
 	for(int i=0, j=0; i<num.size()&&j<op.size(); ){
-		tmp = num[i];
 		if( op[j]=='-' ){
 			while(j!=op.size()){
 				tmp-=num[++i];
@@ -54,6 +48,6 @@ int main(){
 			j++;
 		}
 	}
-	cout<<"result: "<<tmp<<'\n';
+	cout<<tmp<<'\n';
 	return 0;
 }
