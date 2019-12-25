@@ -2,12 +2,12 @@
 #include <queue>
 #include <stack>
 using namespace std;
-
+int nums[100000];
+// c/c++에서는 a[100000] 크기의 배열을 지역변수로 선언할 수 없다고해서 전역변수로 선언 
 int main(){
 	int n;
 	cin>>n;
-	int *nums = new int[n+1];
-	for(int i=1; i<=n; i++){
+	for(int i=0; i<n; i++){
 		cin>>nums[i];		// 인덱스 1~n 사용 
 	}
 	
@@ -17,28 +17,30 @@ int main(){
 	// 만들수없으면 NO를 출력한다.
 	stack<int> st;
 	queue<char> q;
-	int i=1, j=1;
-	while(i!=n && j!=n){
-		// 스택이 비어있지 않고,
-		// nums[j]가 스택의 맨 위에 있는 수와 같다면 pop 
-		if( i>nums[j] ){
-			if( nums[j] < st.top() ){
-				cout<<"NO\n";
-				return 0;
-			}
-			while( !st.empty() && nums[j]==st.top() ){
-				st.pop();
-				q.push('-');
-				j++;
+	int i=1, j=0;
+	
+	while( j<n ){
+		// 스택이 비어있지않고 top==nums[j]일때 
+		while( !st.empty() && st.top() == nums[j] ){
+			st.pop();
+			q.push('-');
+			j++;
+		}
+		// nums[j]까지의 수(i)를 스택에 push한다.
+		if( nums[j]>=i ){
+			while(true){
+				if( nums[j]<i ) break;
+				st.push(i);
+				q.push('+');
+				i++;	
 			}
 		}
-		// 스택에 nums[j]에 해당하는 수까지 push한다. 
-		if( i<nums[j] )
-		while(true){
-			if( nums[j]<i ) break;
-			st.push(i);
-			q.push('+');
-			i++;
+		// nums[j]까지의 수가 이미 스택에 들어갔는데
+		// 스택이 비어있지않고, top에 존재하는 수가 nums[j]보다 크다면
+		// 이 수열은 스택을 이용해서 만들 수 없으므로 NO를 출력 
+		else if( !st.empty() && st.top()>nums[j] ){
+			cout<<"NO\n";
+			return 0;
 		}
 	}
 	while(!q.empty()){
