@@ -1,31 +1,24 @@
-#include <cstdio>
-
-// 분해합을 구하는 함수 decomp 
-int decomp(int n){
-	int t = 1;
-	while( n >= t ){
-		t*=10;
-	}
-	t/=10;
-	int sum=0, temp = n;		// sum에 각 자릿수의 합을 저장. 
-	while( t!=0 ){
-		sum+=temp/t;
-		temp%=t;
-		t/=10;
-	}
-	return sum+n;
-}
+#include <iostream>
+using namespace std;
 
 int main(){
-	int N;
-	scanf("%d", &N);
-	for(int i=1; i<1000000; i++){	// i를 1에서부터 키워가며 분해합과 N을 비교 
-		int temp = decomp(i);		// i의 분해합을 temp에 저장 
-		if( temp == N ){			// i의 분해합이 N과 같다면 i가 생성자 
-			printf("%d\n", i);
-			return 0; 				// 가장 작은 생성자 출력 후 프로그램 종료 
+	int n;
+	cin>>n;
+	
+	for(int i=1; i<=n; i++){
+		int tmp=i;
+		int gen=tmp;
+		while( tmp ){
+			gen+=tmp%10;
+			tmp/=10;
+		}
+		if( gen==n ){
+			cout<<i<<'\n';
+			return 0;
 		}
 	}
-	printf("0\n");					// 생성자가 존재하지않으므로 0을 출력 
+	
+	// 생성자가 존재하지 않으면 0을 출력해야한다. 
+	cout<<"0\n";
 	return 0;
-}
+} 
